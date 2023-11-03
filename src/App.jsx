@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
 import ImagenCrypto from  './img/imagen-criptos.png'
@@ -41,6 +41,16 @@ const Heading = styled.h1 `
 
 function App() {
 
+  const [monedas, setMonedas] = useState({})
+
+  // Para cuando se guarde una consulta de monedas y criptomoneda que deseemos
+  useEffect(() => {
+    if(Object.keys(monedas).length > 0) {
+      
+    }
+
+  }, [monedas])
+  
   return (
     <Contenedor>
       <Imagen 
@@ -50,7 +60,7 @@ function App() {
       <div>
         <Heading>Cotiza Criptomonedas Al Instante</Heading>
         <Formulario 
-          
+          setMonedas={setMonedas}
         />
       </div>        
     </Contenedor>
