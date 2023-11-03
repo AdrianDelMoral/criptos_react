@@ -24,12 +24,12 @@ const InputSubmit = styled.input`
 `
 
 const Formulario = ({setMonedas}) => {
-  const [criptos, setCriptos] = useState([])
+  const [cryptos, setCryptos] = useState([])
   const [error, setError] = useState(false)
 
   const [ moneda, SelectMonedas ] = useSelectMonedas('Elige tu Moneda', monedas)
   
-  const [ criptomoneda, SelectCriptomoneda ] = useSelectMonedas('Elige tu Criptomoneda', criptos)
+  const [ cryptomoneda, SelectCryptomoneda ] = useSelectMonedas('Elige tu Cryptomoneda', cryptos)
 
   useEffect(() => {
     const consultarAPI = async () => {
@@ -40,34 +40,34 @@ const Formulario = ({setMonedas}) => {
       const respuesta = await fetch(url)
       const resultado = await respuesta.json()
       // Darle forma para extraer los datos que deseamos en el Fetch
-      const arrayCryptos = resultado.Data.map(cripto => {
+      const arrayCryptos = resultado.Data.map(crypto => {
 
         // Crear Objeto con los datos que estamos deseando sacar de ese fetch
         const objeto = {
-          id: cripto.CoinInfo.Name,
-          nombre: cripto.CoinInfo.FullName
+          id: crypto.CoinInfo.Name,
+          nombre: crypto.CoinInfo.FullName
         }
         return objeto ;
       })
-      setCriptos(arrayCryptos)
+      setCryptos(arrayCryptos)
     }
     consultarAPI();
   }, [])
   
   const handleSubmit= e => {
     e.preventDefault()
-    if([moneda, criptomoneda].includes('')) {
+    if([moneda, cryptomoneda].includes('')) {
       setError(true)
 
       return;
     }
 
     setError(false)
-    // Después de comprobar que se ha seleccionado un tipo de criptomoneda y moneda, válidos. 
-    // Se guardarán las criptomonedas para posteriormente hacer los calculos con ellas
+    // Después de comprobar que se ha seleccionado un tipo de cryptomoneda y moneda, válidos. 
+    // Se guardarán las cryptomonedas para posteriormente hacer los calculos con ellas
     setMonedas({
       moneda,
-      criptomoneda
+      cryptomoneda
     })
   }
   
@@ -78,7 +78,7 @@ const Formulario = ({setMonedas}) => {
         onSubmit={handleSubmit}
       >
         <SelectMonedas />
-        <SelectCriptomoneda />
+        <SelectCryptomoneda />
 
         <InputSubmit
           type="submit" 

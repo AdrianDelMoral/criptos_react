@@ -42,11 +42,31 @@ const Heading = styled.h1 `
 function App() {
 
   const [monedas, setMonedas] = useState({})
+  const { resultado, setResultado } = useState({})
 
-  // Para cuando se guarde una consulta de monedas y criptomoneda que deseemos
+  // Para cuando se guarde una consulta de monedas y cryptomoneda que deseemos
   useEffect(() => {
     if(Object.keys(monedas).length > 0) {
-      
+      const { moneda, cryptomoneda } = monedas
+
+      const cotizarCrypto = async () => {
+        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptomoneda}&tsyms=${moneda}`
+
+        // Hacemos fetch de la url para obtener los resultados en una variable como json
+        const respuesta = await fetch(url)
+        const resultado = await respuesta.json()
+
+        // Controlando la respuesta, en base a la criptomoneda y moneda seleccionada, para que sea dinámica, y no haya que poner a mano el json
+        // console.log(resultado.DISPLAY[cryptomoneda][moneda]);
+        // Y lo guardamos en el state, para asi usarlo con la variable "resultado"
+        setResultado(resultado.DISPLAY[cryptomoneda][moneda]);
+
+        
+        // Sacamos los datos que queremos obtener de la respuesta:
+        
+      }
+
+      cotizarCrypto()
     }
 
   }, [monedas])
@@ -55,10 +75,10 @@ function App() {
     <Contenedor>
       <Imagen 
         src={ImagenCrypto} 
-        alt='Imagenes Criptomonedas'
+        alt='Imagenes Cryptomonedas'
       />
       <div>
-        <Heading>Cotiza Criptomonedas Al Instante</Heading>
+        <Heading>Cotiza Cryptomonedas Al Instante</Heading>
         <Formulario 
           setMonedas={setMonedas}
         />
