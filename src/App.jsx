@@ -42,7 +42,7 @@ const Heading = styled.h1 `
 function App() {
 
   const [monedas, setMonedas] = useState({})
-  const { resultado, setResultado } = useState({})
+  const [ resultado, setResultado ] = useState({})
 
   // Para cuando se guarde una consulta de monedas y cryptomoneda que deseemos
   useEffect(() => {
@@ -60,10 +60,6 @@ function App() {
         // console.log(resultado.DISPLAY[cryptomoneda][moneda]);
         // Y lo guardamos en el state, para asi usarlo con la variable "resultado"
         setResultado(resultado.DISPLAY[cryptomoneda][moneda]);
-
-        
-        // Sacamos los datos que queremos obtener de la respuesta:
-        
       }
 
       cotizarCrypto()
