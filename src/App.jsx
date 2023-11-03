@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
+import Resultado from './components/Resultado'
 import ImagenCrypto from  './img/imagen-criptos.png'
 
 const Contenedor = styled.div `
@@ -13,7 +14,7 @@ const Contenedor = styled.div `
     column-gap: 2rem;
   }
 `
-  
+
 const Imagen = styled.img `
   max-width: 400px;
   width: 80%;
@@ -78,6 +79,8 @@ function App() {
         <Formulario 
           setMonedas={setMonedas}
         />
+        {resultado.PRICE && <Resultado resultado={resultado}/> }
+        
       </div>        
     </Contenedor>
   )
