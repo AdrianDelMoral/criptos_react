@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import Formulario from './components/Formulario'
 import Resultado from './components/Resultado'
+import Spinner from './components/Spinner'
 import ImagenCrypto from  './img/imagen-criptos.png'
 
 const Contenedor = styled.div `
@@ -44,15 +45,22 @@ function App() {
 
   const [monedas, setMonedas] = useState({})
   const [ resultado, setResultado ] = useState({})
+  
+  // State para spinner
+  const [ cargando, setCargando ] = useState(false)
 
   // Para cuando se guarde una consulta de monedas y cryptomoneda que deseemos
   useEffect(() => {
     if(Object.keys(monedas).length > 0) {
-      const { moneda, cryptomoneda } = monedas
-
+      
+      const { moneda, cryptomoneda } = monedas      
       const cotizarCrypto = async () => {
-        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptomoneda}&tsyms=${moneda}`
+        setCargando(true)
+        //Hacer que desaparezca la anterior busqueda de cripto y moneda para asi mostrar solo el spinner
+        setResultado({})
 
+        const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cryptomoneda}&tsyms=${moneda}`
+        
         // Hacemos fetch de la url para obtener los resultados en una variable como json
         const respuesta = await fetch(url)
         const resultado = await respuesta.json()
@@ -61,6 +69,8 @@ function App() {
         // console.log(resultado.DISPLAY[cryptomoneda][moneda]);
         // Y lo guardamos en el state, para asi usarlo con la variable "resultado"
         setResultado(resultado.DISPLAY[cryptomoneda][moneda]);
+
+        setCargando(false)
       }
 
       cotizarCrypto()
@@ -79,8 +89,9 @@ function App() {
         <Formulario 
           setMonedas={setMonedas}
         />
-        {resultado.PRICE && <Resultado resultado={resultado}/> }
         
+        {cargando && <Spinner />}
+        {resultado.PRICE && <Resultado resultado={resultado}/> }
       </div>        
     </Contenedor>
   )
