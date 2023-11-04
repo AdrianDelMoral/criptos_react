@@ -30,7 +30,7 @@ const Heading = styled.h1 `
   font-weight: 700;
   margin-top: 80px;
   margin-bottom: 80px;
-  font-size: 34px;
+  font-size: 40px;
   &::after {
     content: '';
     width: 100px;
@@ -85,7 +85,7 @@ function App() {
         alt='Imagenes Cryptomonedas'
       />
       <div>
-        <Heading>Cotiza Cryptomonedas Al Instante</Heading>
+        <Heading>Cotiza Cryptomonedas AL INSTANTE</Heading>
         <Formulario 
           setMonedas={setMonedas}
         />
